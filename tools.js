@@ -39,13 +39,37 @@ const OneToTwoArry = (sourceArray) =>{
   })
  return targetArry;
 }
+
+
+/**
+     * 查找指定className的父节点
+     * @param {*} element 当前的节点
+     * @param {*} className
+     */
+ const findNearestComponent = (element, className) =>{
+  let target = element;
+  while (target) {
+    if (target.className === className) {
+      return target.getAttribute('index');
+    }
+    target = target.parentNode;
+  }
+  return null;
+},
+
  const autoPlay = (() => {
    const dom1 = document.getElementById('ifr').contentWindow.document.querySelector('.qrcodebox');
+   let flag = true;
    setInterval(() => {
     if (dom1 && dom1.style.display === 'block') {
       const dom = document.getElementById('ifr').contentWindow.document.querySelector('.nextlink');
-      dom && dom.click();
+      if(flag) {
+        dom && dom.click();
+        flag = false;
+        setTimeout(() => {
+          flag = false
+        },10000)
+      }
     }
-   }, 10000);
-  
+   }, 50000);
 })()
